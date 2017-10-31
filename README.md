@@ -1,8 +1,9 @@
-MRichEditor
+Editor
 ======
-A rich text editor sample (based on [summernote](https://github.com/summernote/summernote))
+富文本编辑器 (项目原地址(https://github.com/Even201314/MRichEditor))
+因为原项目Compile不下来，所以自己上传了一份，按自己喜好修改了下包名。
 
-## Features
+## 功能
 
 - Bold
 - Italic
