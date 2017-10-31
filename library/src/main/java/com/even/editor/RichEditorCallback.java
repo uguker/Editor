@@ -1,4 +1,4 @@
-package com.even.mricheditor;
+package com.even.editor;
 
 import android.text.TextUtils;
 import android.webkit.JavascriptInterface;

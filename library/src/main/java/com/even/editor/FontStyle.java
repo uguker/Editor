@@ -1,4 +1,4 @@
-package com.even.mricheditor;
+package com.even.editor;
 
 import android.text.TextUtils;
 import com.google.gson.annotations.SerializedName;

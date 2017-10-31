@@ -1,4 +1,4 @@
-package com.even.mricheditor;
+package com.even.editor;
 
 import android.os.Build;
 import android.webkit.WebView;

@@ -1,4 +1,4 @@
-package com.even.mricheditor;
+package com.even.editor;
 
 import java.util.HashMap;
 import java.util.Map;
