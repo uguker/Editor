@@ -1,7 +1,6 @@
 Editor
 ======
-富文本编辑器 (项目原地址(https://github.com/Even201314/MRichEditor))
-因为原项目Compile不下来，所以自己上传了一份，按自己喜好修改了下包名。
+富文本编辑器，因为原项目Compile不下来，所以自己上传了一份，并按自己喜好修改了下包名。(项目原地址(https://github.com/Even201314/MRichEditor))
 
 ## 功能
 
