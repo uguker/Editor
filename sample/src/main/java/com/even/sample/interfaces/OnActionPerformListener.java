@@ -1,6 +1,6 @@
 package com.even.sample.interfaces;
 
-import com.even.mricheditor.ActionType;
+import com.even.editor.ActionType;
 
 /**
  * OnActionPerformListener

@@ -13,7 +13,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.even.mricheditor.ActionType;
+import com.even.editor.ActionType;
 import com.even.sample.R;
 import com.even.sample.interfaces.OnActionPerformListener;
 import com.even.sample.widget.ColorPaletteView;
