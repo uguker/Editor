@@ -1,6 +1,7 @@
 package com.even.editor;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 import com.google.gson.Gson;
 import java.util.Arrays;

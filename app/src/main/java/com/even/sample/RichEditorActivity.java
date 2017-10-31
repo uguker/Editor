@@ -152,7 +152,7 @@ import java.util.List;
         mWebView.getSettings().setDomStorageEnabled(true);
         mRichEditorCallback = new MRichEditorCallback();
         mWebView.addJavascriptInterface(mRichEditorCallback, "MRichEditor");
-        mWebView.loadUrl("file:///android_asset/richEditor.html");
+        mWebView.loadUrl("file:///android_asset/editor.html");
         mRichEditorAction = new RichEditorAction(mWebView);
 
         keyboardHeightProvider = new KeyboardHeightProvider(this);

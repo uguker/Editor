@@ -1,4 +1,4 @@
-var initSummernote = function(){
+var initSummernote = function() {
     $('#summernote').summernote({
         toolbar: [],
         callbacks: {
