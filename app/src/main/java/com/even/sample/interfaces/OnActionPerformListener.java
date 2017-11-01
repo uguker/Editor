@@ -1,6 +1,6 @@
 package com.even.sample.interfaces;
 
-import com.even.editor.ActionType;
+import com.uguke.code.editor.ActionType;
 
 /**
  * OnActionPerformListener

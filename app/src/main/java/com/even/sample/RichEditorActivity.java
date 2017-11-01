@@ -19,10 +19,10 @@ import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.even.editor.ActionType;
-import com.even.editor.RichEditorAction;
-import com.even.editor.RichEditorCallback;
-import com.even.editor.ui.ActionImageView;
+import com.uguke.code.editor.ActionType;
+import com.uguke.code.editor.CallBack;
+import com.uguke.code.editor.Editor;
+import com.uguke.code.editor.EditorCallback;
 import com.even.sample.fragment.EditHyperlinkFragment;
 import com.even.sample.fragment.EditTableFragment;
 import com.even.sample.fragment.EditorMenuFragment;
@@ -35,11 +35,14 @@ import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.view.CropImageView;
+import com.uguke.code.editor.widget.ActionView;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@SuppressLint("SetJavaScriptEnabled") public class RichEditorActivity extends AppCompatActivity
+@SuppressLint("SetJavaScriptEnabled")
+public class RichEditorActivity extends AppCompatActivity
     implements KeyboardHeightObserver {
     @BindView(R.id.wv_container) WebView mWebView;
     @BindView(R.id.fl_action) FrameLayout flAction;
@@ -50,8 +53,8 @@ import java.util.List;
     private boolean isKeyboardShowing;
     private String htmlContent = "<p>Hello World</p>";
 
-    private RichEditorAction mRichEditorAction;
-    private RichEditorCallback mRichEditorCallback;
+    private Editor mRichEditor;
+    private EditorCallback mRichEditorCallback;
 
     private EditorMenuFragment mEditorMenuFragment;
 
@@ -92,14 +95,14 @@ import java.util.List;
         int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 9,
             getResources().getDisplayMetrics());
         for (int i = 0, size = mActionTypeList.size(); i < size; i++) {
-            final ActionImageView actionImageView = new ActionImageView(this);
+            final ActionView actionImageView = new ActionView(this);
             actionImageView.setLayoutParams(new LinearLayout.LayoutParams(width, width));
             actionImageView.setPadding(padding, padding, padding, padding);
             actionImageView.setActionType(mActionTypeList.get(i));
             actionImageView.setTag(mActionTypeList.get(i));
             actionImageView.setActivatedColor(R.color.colorAccent);
             actionImageView.setDeactivatedColor(R.color.tintColor);
-            actionImageView.setRichEditorAction(mRichEditorAction);
+            actionImageView.setRichEditorAction(mRichEditor);
             actionImageView.setBackgroundResource(R.drawable.btn_colored_material);
             actionImageView.setImageResource(mActionTypeIconList.get(i));
             actionImageView.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +114,7 @@ import java.util.List;
         }
 
         mEditorMenuFragment = new EditorMenuFragment();
-        mEditorMenuFragment.setActionClickListener(new MOnActionPerformListener(mRichEditorAction));
+        mEditorMenuFragment.setActionClickListener(new MOnActionPerformListener(mRichEditor));
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
             .add(R.id.fl_action, mEditorMenuFragment, EditorMenuFragment.class.getName())
@@ -151,9 +154,10 @@ import java.util.List;
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setDomStorageEnabled(true);
         mRichEditorCallback = new MRichEditorCallback();
-        mWebView.addJavascriptInterface(mRichEditorCallback, "MRichEditor");
+        mWebView.addJavascriptInterface(new CallBack() {
+        }, "Editor");
         mWebView.loadUrl("file:///android_asset/editor.html");
-        mRichEditorAction = new RichEditorAction(mWebView);
+        mRichEditor = new Editor(mWebView);
 
         keyboardHeightProvider = new KeyboardHeightProvider(this);
         findViewById(R.id.fl_container).post(new Runnable() {
@@ -168,7 +172,6 @@ import java.util.List;
             super.onProgressChanged(view, newProgress);
             if (newProgress == 100) {
                 if (!TextUtils.isEmpty(htmlContent)) {
-                    mRichEditorAction.insertHtml(htmlContent);
                 }
                 KeyboardUtils.showSoftInput(RichEditorActivity.this);
             }
@@ -191,23 +194,23 @@ import java.util.List;
     }
 
     @OnClick(R.id.iv_action_undo) void onClickUndo() {
-        mRichEditorAction.undo();
+        mRichEditor.undo();
     }
 
     @OnClick(R.id.iv_action_redo) void onClickRedo() {
-        mRichEditorAction.redo();
+        mRichEditor.redo();
     }
 
     @OnClick(R.id.iv_action_txt_color) void onClickTextColor() {
-        mRichEditorAction.foreColor("blue");
+        mRichEditor.foreColor("blue");
     }
 
     @OnClick(R.id.iv_action_txt_bg_color) void onClickHighlight() {
-        mRichEditorAction.backColor("red");
+        mRichEditor.backColor("red");
     }
 
     @OnClick(R.id.iv_action_line_height) void onClickLineHeight() {
-        mRichEditorAction.lineHeight(20);
+        mRichEditor.lineHeight(20);
     }
 
     @OnClick(R.id.iv_action_insert_image) void onClickInsertImage() {
@@ -226,7 +229,7 @@ import java.util.List;
 
                 //1.Insert the Base64 String (Base64.NO_WRAP)
                 ImageItem imageItem = images.get(0);
-                mRichEditorAction.insertImageData(imageItem.name,
+                mRichEditor.insertImageData(imageItem.name,
                     encodeFileToBase64Binary(imageItem.path));
 
                 //2.Insert the ImageUrl
@@ -247,7 +250,7 @@ import java.util.List;
         EditHyperlinkFragment fragment = new EditHyperlinkFragment();
         fragment.setOnHyperlinkListener(new EditHyperlinkFragment.OnHyperlinkListener() {
             @Override public void onHyperlinkOK(String address, String text) {
-                mRichEditorAction.createLink(text, address);
+                mRichEditor.createLink(text, address);
             }
         });
         getSupportFragmentManager().beginTransaction()
@@ -260,7 +263,7 @@ import java.util.List;
         EditTableFragment fragment = new EditTableFragment();
         fragment.setOnTableListener(new EditTableFragment.OnTableListener() {
             @Override public void onTableOK(int rows, int cols) {
-                mRichEditorAction.insertTable(rows, cols);
+                mRichEditor.insertTable(rows, cols);
             }
         });
         getSupportFragmentManager().beginTransaction()
@@ -284,6 +287,8 @@ import java.util.List;
     @Override public void onDestroy() {
         super.onDestroy();
         keyboardHeightProvider.close();
+
+
     }
 
     @Override public void onKeyboardHeightChanged(int height, int orientation) {
@@ -298,11 +303,11 @@ import java.util.List;
         }
     }
 
-    class MRichEditorCallback extends RichEditorCallback {
+    class MRichEditorCallback extends EditorCallback {
 
         @Override public void notifyFontStyleChange(ActionType type, final String value) {
-            ActionImageView actionImageView =
-                (ActionImageView) llActionBarContainer.findViewWithTag(type);
+            ActionView actionImageView =
+                (ActionView) llActionBarContainer.findViewWithTag(type);
             if (actionImageView != null) {
                 actionImageView.notifyFontStyleChange(type, value);
             }
@@ -314,14 +319,14 @@ import java.util.List;
     }
 
     public class MOnActionPerformListener implements OnActionPerformListener {
-        private RichEditorAction mRichEditorAction;
+        private Editor mRichEditor;
 
-        public MOnActionPerformListener(RichEditorAction mRichEditorAction) {
-            this.mRichEditorAction = mRichEditorAction;
+        public MOnActionPerformListener(Editor mRichEditor) {
+            this.mRichEditor = mRichEditor;
         }
 
         @Override public void onActionPerform(ActionType type, Object... values) {
-            if (mRichEditorAction == null) {
+            if (mRichEditor == null) {
                 return;
             }
 
@@ -332,19 +337,19 @@ import java.util.List;
 
             switch (type) {
                 case SIZE:
-                    mRichEditorAction.fontSize(Double.valueOf(value));
+                    mRichEditor.fontSize(Double.valueOf(value));
                     break;
                 case LINE_HEIGHT:
-                    mRichEditorAction.lineHeight(Double.valueOf(value));
+                    mRichEditor.lineHeight(Double.valueOf(value));
                     break;
                 case FORE_COLOR:
-                    mRichEditorAction.foreColor(value);
+                    mRichEditor.foreColor(value);
                     break;
                 case BACK_COLOR:
-                    mRichEditorAction.backColor(value);
+                    mRichEditor.backColor(value);
                     break;
                 case FAMILY:
-                    mRichEditorAction.fontName(value);
+                    mRichEditor.fontName(value);
                     break;
                 case IMAGE:
                     onClickInsertImage();
@@ -380,8 +385,8 @@ import java.util.List;
                 case H5:
                 case H6:
                 case LINE:
-                    ActionImageView actionImageView =
-                        (ActionImageView) llActionBarContainer.findViewWithTag(type);
+                    ActionView actionImageView =
+                        (ActionView) llActionBarContainer.findViewWithTag(type);
                     if (actionImageView != null) {
                         actionImageView.performClick();
                     }

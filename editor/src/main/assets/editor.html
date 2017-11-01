@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<script src="jquery.min.js"></script>
+	<link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+	<link href="summernote/summernote.css" rel="stylesheet">
+	<script src="bootstrap/bootstrap.min.js"></script> 
+	<script src="summernote/summernote.min.js"></script>
+	<script src="summernote/lang/summernote-zh-CN.min.js"></script>
+</head>
+<body>
+	<div id="editor"></div>
+
+</body>
+</html>
+
+<script>
+	// TODO 获取富文本编辑器对象
+	var editor = $('#editor');
+
+	$(function() {
+		editor.summernote({
+			toolbar: [],
+			callbacks: {
+				onInit: function(e) {
+					editor.summernote("fullscreen.toggle");
+					editor.summernote('fontName', 'Helvetica Neue');
+					Editor.onInit();
+				},
+				onChange: function(contents, $editable) {
+					//Editor.refreshHtml(contents);
+					Editor.onChange(contents);
+    			},
+    			onEnter: function() {
+					Editor.onEnter();
+    			},
+    			onFocus: function() {
+    				Editor.onFocus();
+    			},
+    			onBlur: function() {
+    				Editor.onBlur();
+    			},
+    			onImageUpload: function(files) {
+    				Editor.onImageUpload(files);
+    			}
+			}
+		});
+	});
+	// TODO 撤销操作
+	var undo = function() { editor.summernote('undo'); };
+	// TODO 恢复操作
+	var redo = function() { editor.summernote('redo'); };
+	// TODO 设置一个焦点
+	var focus = function(){ editor.summernote('focus'); };
+	// TODO 重置
+	var reset = function(){ editor.summernote('reset'); };
+	// TODO 设置不能编辑
+	var disable = function(){ editor.summernote('disable'); };
+	// TODO 设置能够编辑
+	var enable = function(){ editor.summernote('enable'); };
+	// TODO 获取富文本编辑器对象
+	var pasteHTML = function(html){
+		editor.summernote('code', html);
+		keepLastIndex(document.getElementsByClassName('note-editable panel-body')[0]);
+	}
+	// TODO 保持光标在最后位置
+	function keepLastIndex(obj) {
+	    var range = window.getSelection();	//创建range
+	    range.selectAllChildren(obj);		//range 选择obj下所有子内容
+	    range.collapseToEnd();				//光标移至最后
+	}
+	var placeholder = function(hint) { editor.summernote({ placeholder: hint}); };
+	// TODO 加粗
+	var bold = function() { editor.summernote('bold'); };
+	// TODO 斜体
+	var italic = function() { editor.summernote('italic'); };
+	// TODO 下划线
+	var underline = function() { editor.summernote('underline'); };
+	// TODO 删除线
+	var strikethrough = function() { editor.summernote('strikethrough'); };
+	// TODO 设置上标
+	var superscript = function() { editor.summernote('superscript'); };
+	// TODO 设置下标
+	var subscript = function() { editor.summernote('subscript'); };
+	// TODO 背景颜色
+	var backColor = function(color) { editor.summernote('backColor', color); };
+	// TODO 文字颜色
+	var foreColor = function(color) { editor.summernote('foreColor', color); };
+	// TODO 字体名称
+	var fontName = function(fontName) { editor.summernote('fontName', fontName); };
+	// TODO 字体大小
+	var fontSize = function(fontSize) { editor.summernote('fontSize', fontSize); };
+	// TODO 文字居左
+	var justifyLeft = function() { editor.summernote('justifyLeft'); };
+	// TODO 文字居右
+	var justifyRight = function() { editor.summernote('justifyRight'); };
+	// TODO 文字居中
+	var justifyCenter = function() { editor.summernote('justifyCenter'); };
+	// TODO 文字充满
+	var justifyFull = function() { editor.summernote('justifyFull'); };
+
+	var insertOrderedList = function() { editor.summernote('insertOrderedList'); };
+
+	var insertUnorderedList = function() { editor.summernote('insertUnorderedList'); };
+
+	var indent = function() { editor.summernote('indent'); };
+
+	var outdent = function() { editor.summernote('outdent'); };
+
+	var formatBlock = function(tagName) { editor.summernote('formatBlock', tagName); };
+
+	var formatPara = function() { editor.summernote('formatPara'); };
+
+	var formatH1 = function() { editor.summernote('formatH1'); };
+
+	var formatH2 = function() { editor.summernote('formatH2'); };
+
+	var formatH3 = function() { editor.summernote('formatH3'); };
+
+	var formatH4 = function() { editor.summernote('formatH4'); };
+
+	var formatH5 = function() { editor.summernote('formatH5'); };
+
+	var formatH6 = function() { editor.summernote('formatH6'); };
+
+	var lineHeight = function(lineHeight) { editor.summernote('lineHeight', lineHeight); };
+
+	var insertImageUrl = function(imageUrl) { editor.summernote('insertImage', imageUrl, null); };
+
+	var insertText = function(text) { editor.summernote('insertText', text); };
+
+	var createLink = function(linkText, linkUrl) {
+	    editor.summernote('createLink', {
+	      text: linkText,
+	      url: linkUrl,
+	      isNewWindow: false
+	    });
+	};
+
+	var unlink = function() { editor.summernote('unlink'); };
+
+	var insertText = function(text) { editor.summernote('editor.insertText', text); };
+
+	var codeView = function() { editor.summernote('codeview.toggle'); };
+
+	var insertTable = function(dim) { editor.summernote('insertTable', dim); };
+
+	var insertHorizontalRule = function() { editor.summernote('insertHorizontalRule'); };
+
+</script>
