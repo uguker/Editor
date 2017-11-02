@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Font Style
- * Created by even.wu on 9/8/17.
+ * 功能描述：字体样式
+ * @author LeiJue
+ * @time 2017/11/02
  */
-
 public class FontStyle {
 
     /**
@@ -56,6 +56,10 @@ public class FontStyle {
         return fontSize;
     }
 
+    /**
+     * 功能描述：获取对齐方式
+     * @return 
+     */
     public ActionType getTextAlign() {
         if (TextUtils.isEmpty(textAlign)) {
             return null;
@@ -73,8 +77,6 @@ public class FontStyle {
                 type = ActionType.JUSTIFY_RIGHT;
                 break;
             case "justify":
-                type = ActionType.JUSTIFY_FULL;
-                break;
             default:
                 type = ActionType.JUSTIFY_FULL;
                 break;
@@ -86,6 +88,10 @@ public class FontStyle {
         return listStyleType;
     }
 
+    /**
+     * 功能描述：获取行间隔高度
+     * @return 
+     */
     public double getLineHeight() {
         double height = 0;
 
@@ -100,7 +106,11 @@ public class FontStyle {
         }
         return height;
     }
-
+    
+    /**
+     * 功能描述：获取文本块样式
+     * @return 
+     */
     public ActionType getFontBlock() {
         ActionType type = ActionType.NONE;
         if (TextUtils.isEmpty(fontBlock)) {
@@ -126,34 +136,42 @@ public class FontStyle {
         return type;
     }
 
+    /** 功能描述：获取文字背景色 **/
     public String getFontBackColor() {
         return fontBackColor;
     }
 
+    /** 功能描述：获取文字颜色 **/
     public String getFontForeColor() {
         return fontForeColor;
     }
 
+    /** 功能描述：文字是否加粗 **/
     public boolean isBold() {
         return "bold".equals(fontBold);
     }
 
+    /** 功能描述：文字是否为斜体 **/
     public boolean isItalic() {
         return "italic".equals(fontItalic);
     }
 
+    /** 功能描述：文字是否有下划线 **/
     public boolean isUnderline() {
         return "underline".equals(fontUnderline);
     }
 
+    /** 功能描述：文字是否为上标 **/
     public boolean isSubscript() {
         return "subscript".equals(fontSubscript);
     }
 
+    /** 功能描述：文字是否为下标 **/
     public boolean isSuperscript() {
         return "superscript".equals(fontSuperscript);
     }
 
+    /** 功能描述：文字是否有删除线 **/
     public boolean isStrikethrough() {
         return "strikethrough".equals(fontStrikethrough);
     }
@@ -194,7 +212,6 @@ public class FontStyle {
          * ec : {}
          * eo : 4
          */
-
         private ScBean sc;
         private int so;
         private EcBean ec;
@@ -232,13 +249,10 @@ public class FontStyle {
             this.eo = eo;
         }
 
-        public static class ScBean {
-        }
+        public static class ScBean {}
 
-        public static class EcBean {
-        }
+        public static class EcBean {}
     }
 
-    public static class AncestorsBean {
-    }
+    public static class AncestorsBean {}
 }

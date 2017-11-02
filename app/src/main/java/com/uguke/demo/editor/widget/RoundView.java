@@ -1,4 +1,4 @@
-package com.even.sample.widget;
+package com.uguke.demo.editor.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,7 +8,7 @@ import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
-import com.even.sample.R;
+import com.uguke.demo.editor.R;
 
 /**
  * Round View

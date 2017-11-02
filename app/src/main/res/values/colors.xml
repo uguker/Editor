@@ -1,8 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="colorPrimary">#3F51B5</color>
-  <color name="colorPrimaryDark">#303F9F</color>
-  <color name="colorAccent">#FFA600</color>
+  <color name="colorPrimary">#999900</color>
+  <color name="colorPrimaryDark">#996600</color>
+  <color name="colorAccent">#FFAB19</color>
+
+  <color name="colorTransparent">#00000000</color>
+  <color name="colorBackground">#F0F0F0</color>
+
+  <color name="colorConsoleMenu">#FFFFFF</color>
+  <color name="colorConsolePeople">#FB7E00</color>
+  <color name="colorConsoleNote">#00AAFF</color>
+  <color name="colorConsoleNav">#51D125</color>
+  <color name="colorCloudFile">#00AAFF</color>
+
+  <color name="colorSplit">#DEDEDE</color>
+  <color name="colorFontOne">#9E9D9D</color>
+  <color name="colorFontTwo">#47B0DA</color>
+  <color name="colorCaption">#848689</color>
+  <color name="colorBodyLight">#555555</color>
+  <color name="colorBody">#252525</color>
+  <color name="colorHint">#BFBFBF</color>
+  <color name="colorLine">#FFFFFF</color>
+  <color name="colorWhite">#FFFFFF</color>
+  <color name="colorError">#FF4500</color>
+
+  <color name="colorTabUnselected">#9E9D9D</color>
+  <color name="colorTabSelected">#00AA00</color>
 
   <color name="textPrimary">#2F3640</color>
 

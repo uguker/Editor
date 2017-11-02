@@ -1,4 +1,4 @@
-package com.even.sample;
+package com.uguke.demo.editor;
 
 import android.app.Activity;
 import android.net.Uri;

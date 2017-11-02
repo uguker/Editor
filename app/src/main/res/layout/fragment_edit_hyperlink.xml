@@ -2,83 +2,80 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    >
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
 
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="48dp"
-      android:background="@color/colorPrimary"
-      >
-
-    <ImageView
-        android:id="@+id/iv_back"
-        android:layout_width="48dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_centerVertical="true"
-        android:background="@drawable/btn_colored_primary"
-        android:padding="16dp"
-        android:src="@drawable/ic_back"
-        android:tint="@android:color/white"
-        />
+        android:background="@color/colorPrimary">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/edit_hyperlink"
-        android:textColor="@color/white"
-        />
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_colored_primary"
+            android:padding="16dp"
+            android:src="@drawable/ic_back"
+            android:tint="@android:color/white" />
 
-  </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/edit_hyperlink"
+            android:textColor="@color/white" />
 
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      android:padding="16dp"
-      >
+    </RelativeLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/address"
-        />
-
-    <EditText
-        android:id="@+id/et_address"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:maxLines="1"
-        />
+        android:orientation="vertical"
+        android:padding="@dimen/paddingContent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/text_to_display"
-        />
+        <EditText
+            android:id="@+id/link_name"
+            style="@style/EditNormal"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/marginLarge"
+            android:layout_marginRight="@dimen/marginLarge"
+            android:layout_marginTop="@dimen/marginLarge"
+            android:background="@drawable/bg_edit_container"
+            android:drawablePadding="@dimen/paddingSmall"
+            android:hint="@string/editor_link_name"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:paddingRight="@dimen/paddingSmaller"
+            android:textColorHint="@color/colorHint" />
 
-    <EditText
-        android:id="@+id/et_display_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:maxLines="1"
-        />
+        <EditText
+            android:id="@+id/link_url"
+            style="@style/EditNormal"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/marginLarge"
+            android:layout_marginRight="@dimen/marginLarge"
+            android:layout_marginTop="@dimen/marginLarge"
+            android:background="@drawable/bg_edit_container"
+            android:drawablePadding="@dimen/paddingSmall"
+            android:hint="@string/editor_link_url"
+            android:inputType="number"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:paddingRight="@dimen/paddingSmaller"
+            android:textColorHint="@color/colorHint" />
 
-    <Button
-        android:id="@+id/btn_ok"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/btn_colored_primary"
-        android:text="@string/ok"
-        android:textColor="@color/white"
-        />
+        <Button
+            android:id="@+id/link_create"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginLarge"
+            android:background="@drawable/btn_colored_primary"
+            android:text="@string/editor_ok"
+            android:textColor="@color/colorWhite" />
 
-  </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

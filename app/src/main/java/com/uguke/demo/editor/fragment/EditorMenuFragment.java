@@ -1,4 +1,4 @@
-package com.even.sample.fragment;
+package com.uguke.demo.editor.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,22 +14,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.uguke.code.editor.ActionType;
-import com.even.sample.R;
-import com.even.sample.interfaces.OnActionPerformListener;
-import com.even.sample.widget.ColorPaletteView;
+import com.uguke.demo.editor.R;
+import com.uguke.demo.editor.interfaces.OnActionPerformListener;
+import com.uguke.demo.editor.widget.ColorPaletteView;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Editor Menu Fragment
- * Created by even.wu on 8/8/17.
- */
 
 public class EditorMenuFragment extends Fragment {
     private View rootView;
-    @BindView(R.id.tv_font_size) TextView tvFontSize;
+    @BindView(R.id.editor_menu_font_size) TextView tvFontSize;
     @BindView(R.id.tv_font_name) TextView tvFontName;
     @BindView(R.id.tv_font_spacing) TextView tvFontSpacing;
     @BindView(R.id.cpv_font_text_color) ColorPaletteView cpvFontTextColor;
@@ -39,23 +35,23 @@ public class EditorMenuFragment extends Fragment {
 
     private Map<Integer, ActionType> mViewTypeMap = new HashMap<Integer, ActionType>() {
         {
-            put(R.id.iv_action_bold, ActionType.BOLD);
-            put(R.id.iv_action_italic, ActionType.ITALIC);
-            put(R.id.iv_action_underline, ActionType.UNDERLINE);
-            put(R.id.iv_action_strikethrough, ActionType.STRIKETHROUGH);
-            put(R.id.iv_action_justify_left, ActionType.JUSTIFY_LEFT);
-            put(R.id.iv_action_justify_center, ActionType.JUSTIFY_CENTER);
-            put(R.id.iv_action_justify_right, ActionType.JUSTIFY_RIGHT);
-            put(R.id.iv_action_justify_full, ActionType.JUSTIFY_FULL);
-            put(R.id.iv_action_subscript, ActionType.SUBSCRIPT);
-            put(R.id.iv_action_superscript, ActionType.SUPERSCRIPT);
-            put(R.id.iv_action_insert_numbers, ActionType.ORDERED);
-            put(R.id.iv_action_insert_bullets, ActionType.UNORDERED);
-            put(R.id.iv_action_indent, ActionType.INDENT);
-            put(R.id.iv_action_outdent, ActionType.OUTDENT);
-            put(R.id.iv_action_code_view, ActionType.CODE_VIEW);
-            put(R.id.iv_action_blockquote, ActionType.BLOCK_QUOTE);
-            put(R.id.iv_action_code_block, ActionType.BLOCK_CODE);
+            put(R.id.editor_menu_bold, ActionType.BOLD);
+            put(R.id.editor_menu_italic, ActionType.ITALIC);
+            put(R.id.editor_menu_underline, ActionType.UNDERLINE);
+            put(R.id.editor_menu_strikethrough, ActionType.STRIKETHROUGH);
+            put(R.id.editor_menu_justify_left, ActionType.JUSTIFY_LEFT);
+            put(R.id.editor_menu_justify_center, ActionType.JUSTIFY_CENTER);
+            put(R.id.editor_menu_justify_right, ActionType.JUSTIFY_RIGHT);
+            put(R.id.editor_menu_justify_full, ActionType.JUSTIFY_FULL);
+            put(R.id.editor_menu_subscript, ActionType.SUBSCRIPT);
+            put(R.id.editor_menu_superscript, ActionType.SUPERSCRIPT);
+            put(R.id.editor_menu_insert_numbers, ActionType.ORDERED);
+            put(R.id.editor_menu_insert_bullets, ActionType.UNORDERED);
+            put(R.id.editor_menu_indent, ActionType.INDENT);
+            put(R.id.editor_menu_outdent, ActionType.OUTDENT);
+            put(R.id.editor_menu_code_view, ActionType.CODE_VIEW);
+            put(R.id.editor_menu_blockquote, ActionType.BLOCK_QUOTE);
+            put(R.id.editor_menu_code_block, ActionType.BLOCK_CODE);
             put(R.id.ll_normal, ActionType.NORMAL);
             put(R.id.ll_h1, ActionType.H1);
             put(R.id.ll_h2, ActionType.H2);
@@ -63,10 +59,10 @@ public class EditorMenuFragment extends Fragment {
             put(R.id.ll_h4, ActionType.H4);
             put(R.id.ll_h5, ActionType.H5);
             put(R.id.ll_h6, ActionType.H6);
-            put(R.id.iv_action_insert_image, ActionType.IMAGE);
-            put(R.id.iv_action_insert_link, ActionType.LINK);
-            put(R.id.iv_action_table, ActionType.TABLE);
-            put(R.id.iv_action_line, ActionType.LINE);
+            put(R.id.editor_menu_insert_image, ActionType.IMAGE);
+            put(R.id.editor_menu_insert_link, ActionType.LINK);
+            put(R.id.editor_menu_table, ActionType.TABLE);
+            put(R.id.editor_menu_line, ActionType.LINE);
         }
     };
 
@@ -110,14 +106,14 @@ public class EditorMenuFragment extends Fragment {
     }
 
     @OnClick({
-        R.id.iv_action_bold, R.id.iv_action_italic, R.id.iv_action_underline,
-        R.id.iv_action_strikethrough, R.id.iv_action_justify_left, R.id.iv_action_justify_center,
-        R.id.iv_action_justify_right, R.id.iv_action_justify_full, R.id.iv_action_subscript,
-        R.id.iv_action_superscript, R.id.iv_action_insert_numbers, R.id.iv_action_insert_bullets,
-        R.id.iv_action_indent, R.id.iv_action_outdent, R.id.iv_action_code_view,
-        R.id.iv_action_blockquote, R.id.iv_action_code_block, R.id.ll_normal, R.id.ll_h1,
-        R.id.ll_h2, R.id.ll_h3, R.id.ll_h4, R.id.ll_h5, R.id.ll_h6, R.id.iv_action_insert_image,
-        R.id.iv_action_insert_link, R.id.iv_action_table, R.id.iv_action_line
+        R.id.editor_menu_bold, R.id.editor_menu_italic, R.id.editor_menu_underline,
+        R.id.editor_menu_strikethrough, R.id.editor_menu_justify_left, R.id.editor_menu_justify_center,
+        R.id.editor_menu_justify_right, R.id.editor_menu_justify_full, R.id.editor_menu_subscript,
+        R.id.editor_menu_superscript, R.id.editor_menu_insert_numbers, R.id.editor_menu_insert_bullets,
+        R.id.editor_menu_indent, R.id.editor_menu_outdent, R.id.editor_menu_code_view,
+        R.id.editor_menu_blockquote, R.id.editor_menu_code_block, R.id.ll_normal, R.id.ll_h1,
+        R.id.ll_h2, R.id.ll_h3, R.id.ll_h4, R.id.ll_h5, R.id.ll_h6, R.id.editor_menu_insert_image,
+        R.id.editor_menu_insert_link, R.id.editor_menu_table, R.id.editor_menu_line
     }) void onClickAction(View view) {
         if (mActionClickListener == null) {
             return;

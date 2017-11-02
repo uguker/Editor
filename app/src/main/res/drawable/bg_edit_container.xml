@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+            <item >
+                <shape>
+                    <solid android:color="@color/colorPrimary"/>
+                </shape>
+            </item>
+            <item android:bottom="2dp">
+                <shape>
+                    <solid android:color="@color/colorBackground"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+            <item >
+                <shape>
+                    <solid android:color="@color/colorHint"/>
+                </shape>
+            </item>
+            <item
+                android:bottom="1dp">
+                <shape>
+                    <solid android:color="@color/colorBackground"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

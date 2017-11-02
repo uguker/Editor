@@ -1,4 +1,4 @@
-package com.even.sample.widget;
+package com.uguke.demo.editor.widget;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,14 +11,10 @@ import android.view.View;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.even.sample.R;
+import com.uguke.demo.editor.R;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Color PaletteView
- * Created by even.wu on 10/8/17.
- */
 
 public class ColorPaletteView extends LinearLayout {
     @BindView(R.id.ll_color_container) LinearLayout llColorContainer;

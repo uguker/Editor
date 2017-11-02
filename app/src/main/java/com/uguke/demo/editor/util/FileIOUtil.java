@@ -1,4 +1,4 @@
-package com.even.sample.util;
+package com.uguke.demo.editor.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;

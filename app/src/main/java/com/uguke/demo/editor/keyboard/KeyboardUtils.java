@@ -1,4 +1,4 @@
-package com.even.sample.keyboard;
+package com.uguke.demo.editor.keyboard;
 
 import android.app.Activity;
 import android.view.View;

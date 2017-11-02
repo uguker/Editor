@@ -18,12 +18,12 @@
         >
 
       <ImageView
-          android:id="@+id/iv_action_undo"
+          android:id="@+id/editor_menu_undo"
           android:layout_width="40dp"
           android:layout_height="40dp"
           android:layout_centerVertical="true"
-          android:layout_toLeftOf="@+id/iv_action_redo"
-          android:layout_toStartOf="@+id/iv_action_redo"
+          android:layout_toLeftOf="@+id/editor_menu_redo"
+          android:layout_toStartOf="@+id/editor_menu_redo"
           android:background="@drawable/btn_colored_primary"
           android:padding="8dp"
           android:src="@drawable/ic_undo"
@@ -31,7 +31,7 @@
           />
 
       <ImageView
-          android:id="@+id/iv_action_redo"
+          android:id="@+id/editor_menu_redo"
           android:layout_width="40dp"
           android:layout_height="40dp"
           android:layout_alignParentEnd="true"
@@ -91,7 +91,7 @@
             >
 
           <ImageView
-              android:id="@+id/iv_action_txt_color"
+              android:id="@+id/editor_menu_txt_color"
               android:padding="9dp"
               android:src="@drawable/ic_format_text_color"
               android:visibility="gone"
@@ -99,7 +99,7 @@
               />
 
           <ImageView
-              android:id="@+id/iv_action_txt_bg_color"
+              android:id="@+id/editor_menu_txt_bg_color"
               android:padding="9dp"
               android:src="@drawable/ic_format_text_bg_clolr"
               android:visibility="gone"
@@ -107,28 +107,28 @@
               />
 
           <ImageView
-              android:id="@+id/iv_action_insert_image"
+              android:id="@+id/editor_menu_insert_image"
               android:padding="8dp"
               android:src="@drawable/ic_insert_photo"
               style="@style/ActionImageView"
               />
 
           <ImageView
-              android:id="@+id/iv_action_insert_link"
+              android:id="@+id/editor_menu_insert_link"
               android:padding="8dp"
               android:src="@drawable/ic_insert_link"
               style="@style/ActionImageView"
               />
 
           <ImageView
-              android:id="@+id/iv_action_table"
+              android:id="@+id/editor_menu_table"
               android:padding="11dp"
               android:src="@drawable/ic_table"
               style="@style/ActionImageView"
               />
 
           <ImageView
-              android:id="@+id/iv_action_line_height"
+              android:id="@+id/editor_menu_line_height"
               android:padding="11dp"
               android:src="@drawable/ic_line_height"
               android:visibility="gone"

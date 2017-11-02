@@ -15,7 +15,7 @@
  * along with Siebe Projects samples.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.even.sample.keyboard;
+package com.uguke.demo.editor.keyboard;
 
 /**
  * The observer that will be notified when the height of

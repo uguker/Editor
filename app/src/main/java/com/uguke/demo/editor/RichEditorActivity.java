@@ -1,4 +1,4 @@
-package com.even.sample;
+package com.uguke.demo.editor;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -20,21 +20,21 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.uguke.code.editor.ActionType;
-import com.uguke.code.editor.CallBack;
 import com.uguke.code.editor.Editor;
 import com.uguke.code.editor.EditorCallback;
-import com.even.sample.fragment.EditHyperlinkFragment;
-import com.even.sample.fragment.EditTableFragment;
-import com.even.sample.fragment.EditorMenuFragment;
-import com.even.sample.interfaces.OnActionPerformListener;
-import com.even.sample.keyboard.KeyboardHeightObserver;
-import com.even.sample.keyboard.KeyboardHeightProvider;
-import com.even.sample.keyboard.KeyboardUtils;
-import com.even.sample.util.FileIOUtil;
+import com.uguke.demo.editor.fragment.EditHyperlinkFragment;
+import com.uguke.demo.editor.fragment.EditTableFragment;
+import com.uguke.demo.editor.fragment.EditorMenuFragment;
+import com.uguke.demo.editor.interfaces.OnActionPerformListener;
+import com.uguke.demo.editor.keyboard.KeyboardHeightObserver;
+import com.uguke.demo.editor.keyboard.KeyboardHeightProvider;
+import com.uguke.demo.editor.keyboard.KeyboardUtils;
+import com.uguke.demo.editor.util.FileIOUtil;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.view.CropImageView;
+import com.uguke.code.editor.EditorManager;
 import com.uguke.code.editor.widget.ActionView;
 
 import java.util.ArrayList;
@@ -102,7 +102,7 @@ public class RichEditorActivity extends AppCompatActivity
             actionImageView.setTag(mActionTypeList.get(i));
             actionImageView.setActivatedColor(R.color.colorAccent);
             actionImageView.setDeactivatedColor(R.color.tintColor);
-            actionImageView.setRichEditorAction(mRichEditor);
+            actionImageView.setEditor(mRichEditor);
             actionImageView.setBackgroundResource(R.drawable.btn_colored_material);
             actionImageView.setImageResource(mActionTypeIconList.get(i));
             actionImageView.setOnClickListener(new View.OnClickListener() {
@@ -154,7 +154,19 @@ public class RichEditorActivity extends AppCompatActivity
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setDomStorageEnabled(true);
         mRichEditorCallback = new MRichEditorCallback();
-        mWebView.addJavascriptInterface(new CallBack() {
+        mWebView.addJavascriptInterface(new EditorManager() {
+            @Override
+            public void notifyFontStyleChange(ActionType type, String value) {
+                ActionView actionImageView =
+                        (ActionView) llActionBarContainer.findViewWithTag(type);
+                if (actionImageView != null) {
+                    actionImageView.notifyFontStyleChange(type, value);
+                }
+                if (mEditorMenuFragment != null) {
+                    mEditorMenuFragment.updateActionStates(type, value);
+                }
+
+            }
         }, "Editor");
         mWebView.loadUrl("file:///android_asset/editor.html");
         mRichEditor = new Editor(mWebView);
@@ -193,27 +205,27 @@ public class RichEditorActivity extends AppCompatActivity
         }
     }
 
-    @OnClick(R.id.iv_action_undo) void onClickUndo() {
+    @OnClick(R.id.editor_menu_undo) void onClickUndo() {
         mRichEditor.undo();
     }
 
-    @OnClick(R.id.iv_action_redo) void onClickRedo() {
+    @OnClick(R.id.editor_menu_redo) void onClickRedo() {
         mRichEditor.redo();
     }
 
-    @OnClick(R.id.iv_action_txt_color) void onClickTextColor() {
+    @OnClick(R.id.editor_menu_txt_color) void onClickTextColor() {
         mRichEditor.foreColor("blue");
     }
 
-    @OnClick(R.id.iv_action_txt_bg_color) void onClickHighlight() {
+    @OnClick(R.id.editor_menu_txt_bg_color) void onClickHighlight() {
         mRichEditor.backColor("red");
     }
 
-    @OnClick(R.id.iv_action_line_height) void onClickLineHeight() {
+    @OnClick(R.id.editor_menu_line_height) void onClickLineHeight() {
         mRichEditor.lineHeight(20);
     }
 
-    @OnClick(R.id.iv_action_insert_image) void onClickInsertImage() {
+    @OnClick(R.id.editor_menu_insert_image) void onClickInsertImage() {
         Intent intent = new Intent(this, ImageGridActivity.class);
         startActivityForResult(intent, REQUEST_CODE_CHOOSE);
     }
@@ -245,12 +257,12 @@ public class RichEditorActivity extends AppCompatActivity
         return new String(encoded);
     }
 
-    @OnClick(R.id.iv_action_insert_link) void onClickInsertLink() {
+    @OnClick(R.id.editor_menu_insert_link) void onClickInsertLink() {
         KeyboardUtils.hideSoftInput(RichEditorActivity.this);
         EditHyperlinkFragment fragment = new EditHyperlinkFragment();
         fragment.setOnHyperlinkListener(new EditHyperlinkFragment.OnHyperlinkListener() {
             @Override public void onHyperlinkOK(String address, String text) {
-                mRichEditor.createLink(text, address);
+                mRichEditor.insertLink(text, address);
             }
         });
         getSupportFragmentManager().beginTransaction()
@@ -258,7 +270,7 @@ public class RichEditorActivity extends AppCompatActivity
             .commit();
     }
 
-    @OnClick(R.id.iv_action_table) void onClickInsertTable() {
+    @OnClick(R.id.editor_menu_table) void onClickInsertTable() {
         KeyboardUtils.hideSoftInput(RichEditorActivity.this);
         EditTableFragment fragment = new EditTableFragment();
         fragment.setOnTableListener(new EditTableFragment.OnTableListener() {

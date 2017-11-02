@@ -5,7 +5,7 @@ android {
   buildToolsVersion "25.0.3"
 
   defaultConfig {
-    applicationId "com.even.sample"
+    applicationId "com.uguke.demo.editor"
     minSdkVersion 14
     targetSdkVersion 25
     versionCode 1

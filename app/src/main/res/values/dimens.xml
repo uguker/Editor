@@ -1,8 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <dimen name="text_micro">10sp</dimen>
-  <dimen name="text_small">12sp</dimen>
-  <dimen name="text_medium">14sp</dimen>
-  <dimen name="text_large">18sp</dimen>
-  <dimen name="text_super">32sp</dimen>
+    <dimen name="text_micro">10sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_medium">14sp</dimen>
+    <dimen name="text_large">18sp</dimen>
+    <dimen name="text_super">32sp</dimen>
+
+    <dimen name="actionBarSize">48dp</dimen>
+    <!--内距-->
+    <dimen name="paddingMin">2dp</dimen>
+    <dimen name="paddingSmaller">5dp</dimen>
+    <dimen name="paddingSmall">10dp</dimen>
+    <dimen name="paddingContent">16dp</dimen>
+    <dimen name="paddingLarge">20dp</dimen>
+    <dimen name="paddingLarger">30dp</dimen>
+    <dimen name="paddingMax">40dp</dimen>
+    <!--外距-->
+    <dimen name="marginMin">2dp</dimen>
+    <dimen name="marginSmaller">5dp</dimen>
+    <dimen name="marginSmall">10dp</dimen>
+    <dimen name="marginContent">16dp</dimen>
+    <dimen name="marginLarge">20dp</dimen>
+    <dimen name="marginLarger">30dp</dimen>
+    <dimen name="marginMax">40dp</dimen>
+    <!--字体-->
+    <dimen name="fontMin">8sp</dimen>
+    <dimen name="fontSmall">10sp</dimen>
+    <dimen name="fontCaption">12sp</dimen>
+    <dimen name="fontBody">14sp</dimen>
+    <dimen name="fontSubhead">16sp</dimen>
+    <dimen name="fontHead">18sp</dimen>
+    <dimen name="fontTitle">20sp</dimen>
+    <dimen name="fontDisplaySmall">34sp</dimen>
+    <dimen name="fontDisplay">45sp</dimen>
+    <dimen name="fontDisplayLarge">56sp</dimen>
+    <!--行-->
+    <dimen name="lineSplit">0.5dp</dimen>
+    <dimen name="lineHeight">44dp</dimen>
+    <dimen name="lineHeightLarge">50dp</dimen>
+
+    <!--角-->
+    <dimen name="cornerCommon">5dp</dimen>
+    <dimen name="cornerSmall">3dp</dimen>
+    <dimen name="cornerLarge">10dp</dimen>
+    <dimen name="cornerLine">22dp</dimen>
+
+    <dimen name="headImg">48dp</dimen>
+    <dimen name="iconImg">80dp</dimen>
+    <dimen name="tabImg">24dp</dimen>
+    <dimen name="menuImg">48dp</dimen>
+    <dimen name="editorImg">48dp</dimen>
+    <dimen name="webFileImg">40dp</dimen>
+
+    <dimen name="webFileMenu">54dp</dimen>
+
+
 </resources>

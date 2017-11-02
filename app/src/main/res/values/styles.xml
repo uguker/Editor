@@ -1,19 +1,108 @@
 <resources>
 
-  <!-- Base application theme. -->
-  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
-  </style>
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!--<item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/transparent</item>-->
+    </style>
 
-  <style name="ActionImageView">
-    <item name="android:layout_width">40dp</item>
-    <item name="android:layout_height">40dp</item>
-    <item name="android:background">@drawable/btn_colored_material</item>
-    <item name="android:contentDescription">@null</item>
-    <item name="android:tint">@color/tintColor</item>
-  </style>
+    <style name="AppTheme" parent="BaseTheme">
+        <item name="android:selectableItemBackground">@null</item>
+    </style>
+
+    <style name="WelcomeTheme" parent="BaseTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
+
+    <style name="ToolbarPopupTheme" parent="@style/ThemeOverlay.AppCompat.Light">
+        <!--新增一个item，用于控制menu-->
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+    </style>
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <!--把该属性改为false即可使menu位置位于toolbar之下-->
+        <item name="overlapAnchor">false</item>
+    </style>
+
+    <style name="ToolbarCommon">
+        <item name="android:textSize">@dimen/fontTitle</item>
+    </style>
+
+    <style name="SeekBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">#FFFFFF</item>
+    </style>
+
+    <!-- 文本编辑框布局样式 -->
+    <style name="NormalTextInput">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/marginContent</item>
+        <item name="android:layout_marginRight">@dimen/marginContent</item>
+        <item name="android:textColorHint">@color/colorHint</item>
+    </style>
+
+    <!-- 文本编辑框样式 -->
+    <style name="EditNormal">
+        <item name="android:textSize">@dimen/fontSubhead</item>
+        <item name="android:textColor">@color/colorBody</item>
+        <item name="android:layout_height">50dip</item>
+    </style>
+
+    <!-- 隐藏文本样式 -->
+    <style name="HintTextInput">
+        <item name="android:textColor">@color/colorHint</item>
+        <item name="android:textSize">@dimen/fontSmall</item>
+    </style>
+
+    <!-- 错误样式 -->
+    <style name="ErrorTextInput">
+        <item name="android:textColor">@color/colorError</item>
+        <item name="android:textSize">@dimen/fontSmall</item>
+    </style>
+
+    <!--横向分割线-->
+    <style name="LineSplitH">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/lineSplit</item>
+        <item name="android:background">@color/colorSplit</item>
+    </style>
+    <!--纵向分割线-->
+    <style name="LineSplitV">
+        <item name="android:layout_width">0.5dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/colorSplit</item>
+    </style>
+    <!--普通行-->
+    <style name="LineNormal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/lineHeight</item>
+        <item name="android:background">@color/colorLine</item>
+        <item name="android:paddingLeft">@dimen/paddingContent</item>
+        <item name="android:paddingRight">@dimen/paddingContent</item>
+    </style>
+
+
+
+    <declare-styleable name="ComEditText">
+        <attr name="password" format="boolean"/>
+    </declare-styleable>
+
+    <style name="ActionImageView">
+        <item name="android:layout_width">@dimen/editorImg</item>
+        <item name="android:layout_height">@dimen/editorImg</item>
+        <item name="android:background">@drawable/btn_colored_material</item>
+        <item name="android:contentDescription">@null</item>
+        <item name="android:tint">@color/tintColor</item>
+    </style>
+
 
 </resources>

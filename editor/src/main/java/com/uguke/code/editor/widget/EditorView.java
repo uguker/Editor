@@ -11,8 +11,8 @@ import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 
-import com.uguke.code.editor.CallBack;
 import com.uguke.code.editor.Editor;
+import com.uguke.code.editor.EditorManager;
 
 import java.io.File;
 
@@ -25,38 +25,6 @@ public class EditorView extends LinearLayout {
 
     private Editor action;
 
-    private CallBack callBack = new CallBack() {
-        @Override
-        public void onInit() {
-            Log.e("数据", "onInit");
-        }
-
-        @Override
-        public void onEnter() {
-            Log.e("数据", "onEnter");
-        }
-
-        @Override
-        public void onFocus() {
-            Log.e("数据", "onFocus");
-        }
-
-        @Override
-        public void onBlur() {
-            Log.e("数据", "onBlur");
-        }
-
-        @Override
-        public void onImageUpload(File file) {
-            Log.e("数据", "onImageUpload");
-        }
-
-        @Override
-        public void onChange(String html) {
-            content = html;
-            Log.e("数据", html);
-        }
-    };
 
 
     public EditorView(Context context) {
@@ -91,7 +59,7 @@ public class EditorView extends LinearLayout {
         webView.setWebChromeClient(new CustomWebChromeClient());
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
-        webView.addJavascriptInterface(new CallBack() {}, "Editor");
+        webView.addJavascriptInterface(new EditorManager() {}, "Editor");
         webView.loadUrl("file:///android_asset/editor.html");
         action = new Editor(webView);
     }

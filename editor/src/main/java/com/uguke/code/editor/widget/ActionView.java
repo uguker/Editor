@@ -11,11 +11,17 @@ import com.even.editor.R;
 import com.uguke.code.editor.ActionType;
 import com.uguke.code.editor.Editor;
 
+/**
+ * 功能描述：操作按钮
+ * @author LeiJue
+ * @time 2017/11/02
+ */
 public class ActionView extends AppCompatImageView {
 
-    private ActionType mActionType;
-    private Editor mRichEditor;
+
+    private Editor editor;
     private Context mContext;
+    private ActionType actionType;
 
     private boolean enabled = true;
     private boolean activated = true;
@@ -41,24 +47,24 @@ public class ActionView extends AppCompatImageView {
     private void init(Context context, AttributeSet attrs) {
         this.mContext = context;
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ActionView);
-        mActionType = ActionType.fromInteger(ta.getInteger(R.styleable.ActionView_actionType, 0));
+        actionType = ActionType.fromInteger(ta.getInteger(R.styleable.ActionView_actionType, 0));
         ta.recycle();
     }
-
+    
     public ActionType getActionType() {
-        return mActionType;
+        return actionType;
     }
 
-    public void setActionType(ActionType mActionType) {
-        this.mActionType = mActionType;
+    public void setActionType(ActionType actionType) {
+        this.actionType = actionType;
     }
 
-    public Editor getRichEditorAction() {
-        return mRichEditor;
+    public Editor getEditor() {
+        return editor;
     }
 
-    public void setRichEditorAction(Editor mRichEditor) {
-        this.mRichEditor = mRichEditor;
+    public void setEditor(Editor editor) {
+        this.editor = editor;
     }
 
     public void setEnabled(boolean enabled) {
@@ -78,83 +84,81 @@ public class ActionView extends AppCompatImageView {
     }
 
     public void command() {
-        //TODO RichEditorAction can not be null
-
-        switch (mActionType) {
-            case BOLD:
-                mRichEditor.bold();
+        switch (actionType) {
+            case BOLD:              //粗体
+                editor.bold();
                 break;
-            case ITALIC:
-                mRichEditor.italic();
+            case ITALIC:            //斜体
+                editor.italic();
                 break;
-            case UNDERLINE:
-                mRichEditor.underline();
+            case UNDERLINE:         //下划线
+                editor.underline();
                 break;
-            case SUBSCRIPT:
-                mRichEditor.subscript();
+            case SUBSCRIPT:         //上标
+                editor.subscript();
                 break;
-            case SUPERSCRIPT:
-                mRichEditor.superscript();
+            case SUPERSCRIPT:       //下标
+                editor.superscript();
                 break;
-            case STRIKETHROUGH:
-                mRichEditor.strikethrough();
+            case STRIKETHROUGH:     //删除线
+                editor.strikethrough();
                 break;
-            case NORMAL:
-                mRichEditor.formatPara();
+            case NORMAL:            //正常
+                editor.formatPara();
                 break;
-            case H1:
-                mRichEditor.formatH1();
+            case H1:                //标题一
+                editor.formatH1();
                 break;
-            case H2:
-                mRichEditor.formatH2();
+            case H2:                //标题二
+                editor.formatH2();
                 break;
-            case H3:
-                mRichEditor.formatH3();
+            case H3:                //标题三
+                editor.formatH3();
                 break;
-            case H4:
-                mRichEditor.formatH4();
+            case H4:                //标题四
+                editor.formatH4();
                 break;
-            case H5:
-                mRichEditor.formatH5();
+            case H5:                //标题五
+                editor.formatH5();
                 break;
-            case H6:
-                mRichEditor.formatH6();
+            case H6:                //标题六
+                editor.formatH6();
                 break;
-            case JUSTIFY_LEFT:
-                mRichEditor.justifyLeft();
+            case JUSTIFY_LEFT:      //文本居左
+                editor.justifyLeft();
                 break;
-            case JUSTIFY_CENTER:
-                mRichEditor.justifyCenter();
+            case JUSTIFY_CENTER:    //文本居中
+                editor.justifyCenter();
                 break;
-            case JUSTIFY_RIGHT:
-                mRichEditor.justifyRight();
+            case JUSTIFY_RIGHT:     //文本居右
+                editor.justifyRight();
                 break;
-            case JUSTIFY_FULL:
-                mRichEditor.justifyFull();
+            case JUSTIFY_FULL:      //文本充满
+                editor.justifyFull();
                 break;
-            case ORDERED:
-                mRichEditor.insertOrderedList();
+            case ORDERED:           //有序列表
+                editor.insertOrderedList();
                 break;
-            case UNORDERED:
-                mRichEditor.insertUnorderedList();
+            case UNORDERED:         //无序列表
+                editor.insertUnorderedList();
                 break;
-            case INDENT:
-                mRichEditor.indent();
+            case INDENT:            //缩进
+                editor.indent();
                 break;
-            case OUTDENT:
-                mRichEditor.outdent();
+            case OUTDENT:           //顶格
+                editor.outdent();
                 break;
-            case LINE:
-                mRichEditor.insertHorizontalRule();
+            case LINE:              //分割线
+                editor.insertHorizontalRule();
                 break;
-            case BLOCK_QUOTE:
-                mRichEditor.formatBlockquote();
+            case BLOCK_QUOTE:       //引用块
+                editor.formatBlockquote();
                 break;
-            case BLOCK_CODE:
-                mRichEditor.formatBlockCode();
+            case BLOCK_CODE:        //代码块
+                editor.formatBlockCode();
                 break;
-            case CODE_VIEW:
-                mRichEditor.codeView();
+            case CODE_VIEW:         //编辑模式
+                editor.codeView();
                 break;
         }
     }
@@ -175,7 +179,7 @@ public class ActionView extends AppCompatImageView {
         //    mEditorMenuFragment.updateFontStates(ActionType.LINE_HEIGHT, Double.valueOf(value));
         //    break;
 
-        switch (mActionType) {
+        switch (actionType) {
             case FAMILY:
                 break;
             case SIZE:
