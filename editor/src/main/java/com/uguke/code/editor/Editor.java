@@ -86,6 +86,16 @@ public class Editor {
         load("javascript:subscript()");
     }
 
+    /** 功能描述：设置背景色 **/
+    public void background(String color) {
+        load("javascript:background('" + color + "')");
+    }
+
+    /** 功能描述：设置文字颜色 **/
+    public void fontColor(String color) {
+        load("javascript:fontColor('" + color + "')");
+    }
+
     /** 功能描述：设置文字背景色 **/
     public void backColor(String color) {
         load("javascript:backColor('" + color + "')");

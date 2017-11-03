@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <inset xmlns:android="http://schemas.android.com/apk/res/android">
   <shape android:shape="rectangle">
-    <corners android:radius="4dp" />
-    <solid android:color="@color/white" />
+    <corners android:radius="@dimen/cornerCommon" />
     <stroke
-        android:color="#e0e0e0"
-        android:width="0.5dp" />
+        android:color="@color/colorPressed"
+        android:width="@dimen/lineSplit" />
   </shape>
 </inset>

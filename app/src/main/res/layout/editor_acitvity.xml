@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        android:background="@color/colorPrimary">
+        <include layout="@layout/toolbar_common" />
+
+        <WebView
+            android:id="@+id/editor_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/lineHeight"
+            android:background="@color/colorLine"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/editor_action"
+                style="@style/ActionImageView"
+
+                android:padding="@dimen/paddingSmall"
+                android:src="@drawable/ic_editor_action" />
+            <ImageView
+                android:id="@+id/editor_keyboard"
+                style="@style/ActionImageView"
+                android:padding="@dimen/paddingSmall"
+                android:src="@drawable/ic_editor_keyboard_show" />
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="24dp"
+                android:background="#9E9E9E" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsv_action_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/lineHeight">
+
+                <LinearLayout
+                    android:id="@+id/editor_action_bar_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/lineHeight"
+                    android:orientation="horizontal">
+                    
+                    <ImageView
+                        android:id="@+id/editor_insert_image"
+                        style="@style/ActionImageView"
+                        android:padding="@dimen/paddingSmall"
+                        android:src="@drawable/ic_editor_insert_photo" />
+
+                    <ImageView
+                        android:id="@+id/editor_insert_link"
+                        style="@style/ActionImageView"
+                        android:padding="@dimen/paddingSmall"
+                        android:src="@drawable/ic_editor_insert_link" />
+
+                    <ImageView
+                        android:id="@+id/editor_insert_table"
+                        style="@style/ActionImageView"
+                        android:padding="@dimen/paddingSmall"
+                        android:src="@drawable/ic_editor_insert_table" />
+
+                    <ImageView
+                        android:id="@+id/editor_line_height"
+                        style="@style/ActionImageView"
+                        android:padding="@dimen/paddingSmall"
+                        android:src="@drawable/ic_line_height"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/editor_action_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+    </LinearLayout>
+</FrameLayout>

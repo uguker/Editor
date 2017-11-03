@@ -24,8 +24,15 @@
   <color name="colorWhite">#FFFFFF</color>
   <color name="colorError">#FF4500</color>
 
+  <color name="colorPressed">#E0E0E0</color>
+
   <color name="colorTabUnselected">#9E9D9D</color>
   <color name="colorTabSelected">#00AA00</color>
+
+  <color name="colorEditorIconUnselected">#4CAF50</color>
+  <color name="colorEditorIconselected">#00AA00</color>
+
+
 
   <color name="textPrimary">#2F3640</color>
 

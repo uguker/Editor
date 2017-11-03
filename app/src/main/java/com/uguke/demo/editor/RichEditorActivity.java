@@ -15,10 +15,8 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.uguke.code.editor.ActionType;
 import com.uguke.code.editor.Editor;
 import com.uguke.code.editor.EditorCallback;
@@ -28,7 +26,7 @@ import com.uguke.demo.editor.fragment.EditorMenuFragment;
 import com.uguke.demo.editor.interfaces.OnActionPerformListener;
 import com.uguke.demo.editor.keyboard.KeyboardHeightObserver;
 import com.uguke.demo.editor.keyboard.KeyboardHeightProvider;
-import com.uguke.demo.editor.keyboard.KeyboardUtils;
+import com.uguke.demo.editor.keyboard.KeyboardUtil;
 import com.uguke.demo.editor.util.FileIOUtil;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
@@ -43,10 +41,11 @@ import java.util.List;
 
 @SuppressLint("SetJavaScriptEnabled")
 public class RichEditorActivity extends AppCompatActivity
-    implements KeyboardHeightObserver {
-    @BindView(R.id.wv_container) WebView mWebView;
-    @BindView(R.id.fl_action) FrameLayout flAction;
-    @BindView(R.id.ll_action_bar_container) LinearLayout llActionBarContainer;
+    implements KeyboardHeightObserver, View.OnClickListener {
+    private WebView web;
+    private ImageView editorKeyboard;
+    private FrameLayout actionContainer;
+    private LinearLayout actionBarContainer;
 
     /** The keyboard height provider */
     private KeyboardHeightProvider keyboardHeightProvider;
@@ -68,32 +67,39 @@ public class RichEditorActivity extends AppCompatActivity
             ActionType.BLOCK_CODE, ActionType.BLOCK_QUOTE, ActionType.CODE_VIEW);
 
     private List<Integer> mActionTypeIconList =
-        Arrays.asList(R.drawable.ic_format_bold, R.drawable.ic_format_italic,
-            R.drawable.ic_format_underlined, R.drawable.ic_format_strikethrough,
+        Arrays.asList(R.drawable.ic_editor_format_bold, R.drawable.ic_editor_format_italic,
+            R.drawable.ic_editor_format_underlined, R.drawable.ic_editor_format_strikethrough,
             R.drawable.ic_format_subscript, R.drawable.ic_format_superscript,
-            R.drawable.ic_format_para, R.drawable.ic_format_h1, R.drawable.ic_format_h2,
-            R.drawable.ic_format_h3, R.drawable.ic_format_h4, R.drawable.ic_format_h5,
-            R.drawable.ic_format_h6, R.drawable.ic_format_indent_decrease,
-            R.drawable.ic_format_indent_increase, R.drawable.ic_format_align_left,
-            R.drawable.ic_format_align_center, R.drawable.ic_format_align_right,
-            R.drawable.ic_format_align_justify, R.drawable.ic_format_list_numbered,
-            R.drawable.ic_format_list_bulleted, R.drawable.ic_line, R.drawable.ic_code_block,
-            R.drawable.ic_format_quote, R.drawable.ic_code_review);
+            R.drawable.ic_editor_format_para, R.drawable.ic_editor_format_h1, R.drawable.ic_editor_format_h2,
+            R.drawable.ic_editor_format_h3, R.drawable.ic_editor_format_h4, R.drawable.ic_editor_format_h5,
+            R.drawable.ic_editor_format_h6, R.drawable.ic_editor_format_indent_decrease,
+            R.drawable.ic_editor_format_indent_increase, R.drawable.ic_editor_format_align_left,
+            R.drawable.ic_editor_format_align_center, R.drawable.ic_editor_format_align_right,
+            R.drawable.ic_editor_format_align_justify, R.drawable.ic_editor_format_list_numbered,
+            R.drawable.ic_editor_format_list_bulleted, R.drawable.ic_editor_line, R.drawable.ic_editor_code_block,
+            R.drawable.ic_editor_format_quote, R.drawable.ic_code_review);
 
     private static final int REQUEST_CODE_CHOOSE = 0;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        setContentView(R.layout.editor_acitvity);
+
+        web = (WebView) findViewById(R.id.editor_container);
+        editorKeyboard = (ImageView) findViewById(R.id.editor_keyboard);
+
+        actionContainer = (FrameLayout) findViewById(R.id.editor_action_container);
+        actionBarContainer = (LinearLayout) findViewById(R.id.editor_action_bar_container);
 
         initImageLoader();
         initView();
 
-        int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40,
-            getResources().getDisplayMetrics());
-        int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 9,
-            getResources().getDisplayMetrics());
+//        int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40,
+//            getResources().getDisplayMetrics());
+//        int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 9,
+//            getResources().getDisplayMetrics());
+        int width = getResources().getDimensionPixelSize(R.dimen.editorImg);
+        int padding = getResources().getDimensionPixelSize(R.dimen.paddingSmall);
         for (int i = 0, size = mActionTypeList.size(); i < size; i++) {
             final ActionView actionImageView = new ActionView(this);
             actionImageView.setLayoutParams(new LinearLayout.LayoutParams(width, width));
@@ -110,14 +116,14 @@ public class RichEditorActivity extends AppCompatActivity
                     actionImageView.command();
                 }
             });
-            llActionBarContainer.addView(actionImageView);
+            actionBarContainer.addView(actionImageView);
         }
 
         mEditorMenuFragment = new EditorMenuFragment();
         mEditorMenuFragment.setActionClickListener(new MOnActionPerformListener(mRichEditor));
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
-            .add(R.id.fl_action, mEditorMenuFragment, EditorMenuFragment.class.getName())
+            .add(R.id.editor_action_container, mEditorMenuFragment, EditorMenuFragment.class.getName())
             .commit();
     }
 
@@ -139,7 +145,7 @@ public class RichEditorActivity extends AppCompatActivity
     }
 
     private void initView() {
-        mWebView.setWebViewClient(new WebViewClient() {
+        web.setWebViewClient(new WebViewClient() {
             @Override public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
             }
@@ -150,15 +156,15 @@ public class RichEditorActivity extends AppCompatActivity
             }
         });
 
-        mWebView.setWebChromeClient(new CustomWebChromeClient());
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.getSettings().setDomStorageEnabled(true);
+        web.setWebChromeClient(new CustomWebChromeClient());
+        web.getSettings().setJavaScriptEnabled(true);
+        web.getSettings().setDomStorageEnabled(true);
         mRichEditorCallback = new MRichEditorCallback();
-        mWebView.addJavascriptInterface(new EditorManager() {
+        web.addJavascriptInterface(new EditorManager() {
             @Override
             public void notifyFontStyleChange(ActionType type, String value) {
                 ActionView actionImageView =
-                        (ActionView) llActionBarContainer.findViewWithTag(type);
+                        (ActionView) actionBarContainer.findViewWithTag(type);
                 if (actionImageView != null) {
                     actionImageView.notifyFontStyleChange(type, value);
                 }
@@ -168,8 +174,8 @@ public class RichEditorActivity extends AppCompatActivity
 
             }
         }, "Editor");
-        mWebView.loadUrl("file:///android_asset/editor.html");
-        mRichEditor = new Editor(mWebView);
+        web.loadUrl("file:///android_asset/editor.html");
+        mRichEditor = new Editor(web);
 
         keyboardHeightProvider = new KeyboardHeightProvider(this);
         findViewById(R.id.fl_container).post(new Runnable() {
@@ -177,7 +183,82 @@ public class RichEditorActivity extends AppCompatActivity
                 keyboardHeightProvider.start();
             }
         });
+
+        findViewById(R.id.editor_action).setOnClickListener(this);
+        findViewById(R.id.editor_keyboard).setOnClickListener(this);
+        findViewById(R.id.editor_line_height).setOnClickListener(this);
+        findViewById(R.id.editor_insert_image).setOnClickListener(this);
+        findViewById(R.id.editor_insert_link).setOnClickListener(this);
+        findViewById(R.id.editor_insert_table).setOnClickListener(this);
+
     }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.editor_action:
+                if (actionContainer.getVisibility() == View.VISIBLE) {
+                    actionContainer.setVisibility(View.GONE);
+                } else {
+                    if (isKeyboardShowing) {
+                        KeyboardUtil.hideSoftInput(RichEditorActivity.this);
+                    }
+                    actionContainer.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.editor_keyboard:
+                if (KeyboardUtil.isSoftShowing(this)) {
+                    KeyboardUtil.hideSoftInput(this);
+                    editorKeyboard.setImageResource(R.drawable.ic_editor_keyboard_show);
+                } else {
+                    KeyboardUtil.showSoftInput(this);
+                    editorKeyboard.setImageResource(R.drawable.ic_editor_keyboard_hide);
+                }
+                break;
+            case R.id.editor_line_height:
+                mRichEditor.lineHeight(20);
+                break;
+            case R.id.editor_insert_image:
+                Intent intent = new Intent(this, ImageGridActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_CHOOSE);
+                break;
+            case R.id.editor_insert_link:
+                insertLink();
+                break;
+            case R.id.editor_insert_table:
+                insertTable();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void insertLink() {
+        KeyboardUtil.hideSoftInput(RichEditorActivity.this);
+        EditHyperlinkFragment fragment = new EditHyperlinkFragment();
+        fragment.setOnHyperlinkListener(new EditHyperlinkFragment.OnHyperlinkListener() {
+            @Override public void onHyperlinkOK(String address, String text) {
+                mRichEditor.insertLink(text, address);
+            }
+        });
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fl_container, fragment, EditHyperlinkFragment.class.getName())
+                .commit();
+    }
+
+    private void insertTable() {
+        KeyboardUtil.hideSoftInput(RichEditorActivity.this);
+        EditTableFragment fragment = new EditTableFragment();
+        fragment.setOnTableListener(new EditTableFragment.OnTableListener() {
+            @Override public void onTableOK(int rows, int cols) {
+                mRichEditor.insertTable(rows, cols);
+            }
+        });
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fl_container, fragment, EditHyperlinkFragment.class.getName())
+                .commit();
+    }
+
 
     private class CustomWebChromeClient extends WebChromeClient {
         @Override public void onProgressChanged(WebView view, int newProgress) {
@@ -185,49 +266,16 @@ public class RichEditorActivity extends AppCompatActivity
             if (newProgress == 100) {
                 if (!TextUtils.isEmpty(htmlContent)) {
                 }
-                KeyboardUtils.showSoftInput(RichEditorActivity.this);
+                //KeyboardUtil.showSoftInput(RichEditorActivity.this);
+                //mRichEditor.background("gray");
+                //mRichEditor.fontColor("white");
+                mRichEditor.removeFormat();
             }
         }
 
         @Override public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
         }
-    }
-
-    @OnClick(R.id.iv_action) void onClickAction() {
-        if (flAction.getVisibility() == View.VISIBLE) {
-            flAction.setVisibility(View.GONE);
-        } else {
-            if (isKeyboardShowing) {
-                KeyboardUtils.hideSoftInput(RichEditorActivity.this);
-            }
-            flAction.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @OnClick(R.id.editor_menu_undo) void onClickUndo() {
-        mRichEditor.undo();
-    }
-
-    @OnClick(R.id.editor_menu_redo) void onClickRedo() {
-        mRichEditor.redo();
-    }
-
-    @OnClick(R.id.editor_menu_txt_color) void onClickTextColor() {
-        mRichEditor.foreColor("blue");
-    }
-
-    @OnClick(R.id.editor_menu_txt_bg_color) void onClickHighlight() {
-        mRichEditor.backColor("red");
-    }
-
-    @OnClick(R.id.editor_menu_line_height) void onClickLineHeight() {
-        mRichEditor.lineHeight(20);
-    }
-
-    @OnClick(R.id.editor_menu_insert_image) void onClickInsertImage() {
-        Intent intent = new Intent(this, ImageGridActivity.class);
-        startActivityForResult(intent, REQUEST_CODE_CHOOSE);
     }
 
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -257,31 +305,7 @@ public class RichEditorActivity extends AppCompatActivity
         return new String(encoded);
     }
 
-    @OnClick(R.id.editor_menu_insert_link) void onClickInsertLink() {
-        KeyboardUtils.hideSoftInput(RichEditorActivity.this);
-        EditHyperlinkFragment fragment = new EditHyperlinkFragment();
-        fragment.setOnHyperlinkListener(new EditHyperlinkFragment.OnHyperlinkListener() {
-            @Override public void onHyperlinkOK(String address, String text) {
-                mRichEditor.insertLink(text, address);
-            }
-        });
-        getSupportFragmentManager().beginTransaction()
-            .add(R.id.fl_container, fragment, EditHyperlinkFragment.class.getName())
-            .commit();
-    }
 
-    @OnClick(R.id.editor_menu_table) void onClickInsertTable() {
-        KeyboardUtils.hideSoftInput(RichEditorActivity.this);
-        EditTableFragment fragment = new EditTableFragment();
-        fragment.setOnTableListener(new EditTableFragment.OnTableListener() {
-            @Override public void onTableOK(int rows, int cols) {
-                mRichEditor.insertTable(rows, cols);
-            }
-        });
-        getSupportFragmentManager().beginTransaction()
-            .add(R.id.fl_container, fragment, EditHyperlinkFragment.class.getName())
-            .commit();
-    }
 
     @Override public void onResume() {
         super.onResume();
@@ -291,8 +315,8 @@ public class RichEditorActivity extends AppCompatActivity
     @Override public void onPause() {
         super.onPause();
         keyboardHeightProvider.setKeyboardHeightObserver(null);
-        if (flAction.getVisibility() == View.INVISIBLE) {
-            flAction.setVisibility(View.GONE);
+        if (actionContainer.getVisibility() == View.INVISIBLE) {
+            actionContainer.setVisibility(View.GONE);
         }
     }
 
@@ -306,12 +330,12 @@ public class RichEditorActivity extends AppCompatActivity
     @Override public void onKeyboardHeightChanged(int height, int orientation) {
         isKeyboardShowing = height > 0;
         if (height != 0) {
-            flAction.setVisibility(View.INVISIBLE);
-            ViewGroup.LayoutParams params = flAction.getLayoutParams();
+            actionContainer.setVisibility(View.INVISIBLE);
+            ViewGroup.LayoutParams params = actionContainer.getLayoutParams();
             params.height = height;
-            flAction.setLayoutParams(params);
-        } else if (flAction.getVisibility() != View.VISIBLE) {
-            flAction.setVisibility(View.GONE);
+            actionContainer.setLayoutParams(params);
+        } else if (actionContainer.getVisibility() != View.VISIBLE) {
+            actionContainer.setVisibility(View.GONE);
         }
     }
 
@@ -319,7 +343,7 @@ public class RichEditorActivity extends AppCompatActivity
 
         @Override public void notifyFontStyleChange(ActionType type, final String value) {
             ActionView actionImageView =
-                (ActionView) llActionBarContainer.findViewWithTag(type);
+                (ActionView) actionBarContainer.findViewWithTag(type);
             if (actionImageView != null) {
                 actionImageView.notifyFontStyleChange(type, value);
             }
@@ -364,13 +388,13 @@ public class RichEditorActivity extends AppCompatActivity
                     mRichEditor.fontName(value);
                     break;
                 case IMAGE:
-                    onClickInsertImage();
+                    //onClickInsertImage();
                     break;
                 case LINK:
-                    onClickInsertLink();
+                    insertLink();
                     break;
                 case TABLE:
-                    onClickInsertTable();
+                    insertTable();
                     break;
                 case BOLD:
                 case ITALIC:
@@ -398,7 +422,7 @@ public class RichEditorActivity extends AppCompatActivity
                 case H6:
                 case LINE:
                     ActionView actionImageView =
-                        (ActionView) llActionBarContainer.findViewWithTag(type);
+                        (ActionView) actionBarContainer.findViewWithTag(type);
                     if (actionImageView != null) {
                         actionImageView.performClick();
                     }

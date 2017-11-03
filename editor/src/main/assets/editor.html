@@ -11,7 +11,6 @@
 </head>
 <body>
 	<div id="editor"></div>
-
 </body>
 </html>
 
@@ -62,10 +61,17 @@
 	var enable = function() { editor.summernote('enable'); }
 
 	/** 设置背景颜色 **/
-	var backgroud = function(background) {
+	var background = function(color) {
 		var context = editor.first().data('summernote');
 		var editable = context.layoutInfo.editor.find('.note-editable');
-		editable.css('background', background);
+		editable.css('background', color);
+	}
+
+	/** 设置背景颜色 **/
+	var fontColor = function(color) {
+		var context = editor.first().data('summernote');
+		var editable = context.layoutInfo.editor.find('.note-editable');
+		editable.css('color', color);
 	}
 
 	// TODO 字体样式

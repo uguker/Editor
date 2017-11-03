@@ -257,8 +257,8 @@ public class ActionView extends AppCompatImageView {
                     case JUSTIFY_FULL:
                     case ORDERED:
                     case UNORDERED:
-                        setColorFilter(ContextCompat.getColor(mContext,
-                            Boolean.valueOf(value) ? getActivatedColor() : getDeactivatedColor()));
+//                        setColorFilter(ContextCompat.getColor(mContext,
+//                            Boolean.valueOf(value) ? getActivatedColor() : getDeactivatedColor()));
                         break;
                     default:
                         break;

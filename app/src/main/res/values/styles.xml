@@ -101,8 +101,7 @@
         <item name="android:layout_height">@dimen/editorImg</item>
         <item name="android:background">@drawable/btn_colored_material</item>
         <item name="android:contentDescription">@null</item>
-        <item name="android:tint">@color/tintColor</item>
+        <item name="android:tint">@color/colorEditorIconUnselected</item>
     </style>
-
 
 </resources>

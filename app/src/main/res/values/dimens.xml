@@ -49,7 +49,10 @@
     <dimen name="iconImg">80dp</dimen>
     <dimen name="tabImg">24dp</dimen>
     <dimen name="menuImg">48dp</dimen>
-    <dimen name="editorImg">48dp</dimen>
+
+    <dimen name="editorImg">44dp</dimen>
+    <dimen name="editorBlock">96dp</dimen>
+
     <dimen name="webFileImg">40dp</dimen>
 
     <dimen name="webFileMenu">54dp</dimen>

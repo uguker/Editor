@@ -44,11 +44,9 @@ public class FontSettingAdapter extends BaseRecyclerAdapter<String, FontSettingA
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView content;
-        ImageView selected;
         public ViewHolder(View itemView) {
             super(itemView);
             content = (TextView) itemView.findViewById(R.id.item_content);
-            selected = (ImageView) itemView.findViewById(R.id.item_selected);
 
         }
     }
