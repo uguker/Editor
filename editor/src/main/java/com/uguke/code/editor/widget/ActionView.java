@@ -157,9 +157,6 @@ public class ActionView extends AppCompatImageView {
             case BLOCK_CODE:        //代码块
                 editor.formatBlockCode();
                 break;
-            case CODE_VIEW:         //编辑模式
-                editor.codeView();
-                break;
         }
     }
 

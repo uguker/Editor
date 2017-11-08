@@ -42,9 +42,6 @@
 
       <enum name="blockQuote" value="31" />
       <enum name="blockCode" value="32" />
-
-      <enum name="codeView" value="33" />
-
     </attr>
   </declare-styleable>
 </resources>

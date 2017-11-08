@@ -64,7 +64,7 @@ public class RichEditorActivity extends AppCompatActivity
             ActionType.H5, ActionType.H6, ActionType.INDENT, ActionType.OUTDENT,
             ActionType.JUSTIFY_LEFT, ActionType.JUSTIFY_CENTER, ActionType.JUSTIFY_RIGHT,
             ActionType.JUSTIFY_FULL, ActionType.ORDERED, ActionType.UNORDERED, ActionType.LINE,
-            ActionType.BLOCK_CODE, ActionType.BLOCK_QUOTE, ActionType.CODE_VIEW);
+            ActionType.BLOCK_CODE, ActionType.BLOCK_QUOTE);
 
     private List<Integer> mActionTypeIconList =
         Arrays.asList(R.drawable.ic_editor_format_bold, R.drawable.ic_editor_format_italic,
@@ -77,7 +77,7 @@ public class RichEditorActivity extends AppCompatActivity
             R.drawable.ic_editor_format_align_center, R.drawable.ic_editor_format_align_right,
             R.drawable.ic_editor_format_align_justify, R.drawable.ic_editor_format_list_numbered,
             R.drawable.ic_editor_format_list_bulleted, R.drawable.ic_editor_line, R.drawable.ic_editor_code_block,
-            R.drawable.ic_editor_format_quote, R.drawable.ic_code_review);
+            R.drawable.ic_editor_format_quote);
 
     private static final int REQUEST_CODE_CHOOSE = 0;
 
@@ -267,8 +267,8 @@ public class RichEditorActivity extends AppCompatActivity
                 if (!TextUtils.isEmpty(htmlContent)) {
                 }
                 //KeyboardUtil.showSoftInput(RichEditorActivity.this);
-                //mRichEditor.background("gray");
-                //mRichEditor.fontColor("white");
+                mRichEditor.background("gray");
+                mRichEditor.fontColor("white");
                 mRichEditor.removeFormat();
             }
         }
@@ -406,7 +406,6 @@ public class RichEditorActivity extends AppCompatActivity
                 case JUSTIFY_CENTER:
                 case JUSTIFY_RIGHT:
                 case JUSTIFY_FULL:
-                case CODE_VIEW:
                 case ORDERED:
                 case UNORDERED:
                 case INDENT:

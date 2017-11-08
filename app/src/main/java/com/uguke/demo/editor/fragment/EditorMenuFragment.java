@@ -60,7 +60,6 @@ public class EditorMenuFragment extends Fragment implements View.OnClickListener
             put(R.id.editor_insert_bullets, ActionType.UNORDERED);
             put(R.id.editor_indent, ActionType.INDENT);
             put(R.id.editor_outdent, ActionType.OUTDENT);
-            put(R.id.editor_code_view, ActionType.CODE_VIEW);
             put(R.id.editor_blockquote, ActionType.BLOCK_QUOTE);
             put(R.id.editor_code_block, ActionType.BLOCK_CODE);
             put(R.id.editor_normal, ActionType.NORMAL);
@@ -179,7 +178,6 @@ public class EditorMenuFragment extends Fragment implements View.OnClickListener
                     case JUSTIFY_RIGHT:
                     case JUSTIFY_FULL:
                     case ORDERED:
-                    case CODE_VIEW:
                     case UNORDERED:
                         if (isActive) {
                             ((ImageView) view).setColorFilter(

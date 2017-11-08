@@ -21,9 +21,7 @@ public enum ActionType {
     // TODO 插入
     IMAGE(27), LINK(28), TABLE(29), LINE(30),
     // TODO 代码块及引用
-    BLOCK_QUOTE(31), BLOCK_CODE(32),
-    // TODO 编辑模式
-    CODE_VIEW(33);
+    BLOCK_QUOTE(31), BLOCK_CODE(32);
 
     private int value;
 

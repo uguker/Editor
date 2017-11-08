@@ -482,7 +482,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/marginSmall"
-            android:background="@color/white"
+            android:background="@color/colorLine"
             android:orientation="horizontal"
             android:padding="@dimen/paddingContent">
 

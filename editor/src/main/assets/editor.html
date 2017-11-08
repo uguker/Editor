@@ -8,8 +8,19 @@
 	<script src="bootstrap/bootstrap.min.js"></script> 
 	<script src="summernote/summernote.min.js"></script>
 	<script src="summernote/lang/summernote-zh-CN.min.js"></script>
+	<style>
+		.note-editor.note-frame {
+			border: 0px solid;
+		}
+		.panel {
+			margin-bottom: 0px;
+			border: 0px solid;
+			border-radius: 0px;
+			box-shadow: 0px 0px 0px #FFFFFF;
+		}
+	</style>
 </head>
-<body>
+<body id="container">
 	<div id="editor"></div>
 </body>
 </html>
@@ -59,12 +70,18 @@
 	var disable = function() { editor.summernote('disable'); }
 	/** 能编辑 **/
 	var enable = function() { editor.summernote('enable'); }
-
+	/** 设置全屏 **/
+	var fullScreen = function() {
+		if (!editor.summernote("fullscreen.isFullscreen")) {
+			editor.summernote("fullscreen.toggle");
+		}
+	}
 	/** 设置背景颜色 **/
 	var background = function(color) {
 		var context = editor.first().data('summernote');
 		var editable = context.layoutInfo.editor.find('.note-editable');
 		editable.css('background', color);
+		$('#container').css('background', color);
 	}
 
 	/** 设置背景颜色 **/
@@ -117,6 +134,10 @@
 	var outdent = function() { editor.summernote('outdent'); }
 	/** 设置代码容器 **/
 	var formatBlock = function(tagName) { editor.summernote('formatBlock', tagName); };
+	/** 设置代码容器 **/
+	var formatBlockPre = function() { formatBlock('pre'); };
+	/** 设置代码容器 **/
+	var formatBlockquote = function() {formatBlock('blockquote'); };
 	/** 普通文字 **/
 	var formatPara = function() { editor.summernote('formatPara'); }
 	/** 标题一 **/
